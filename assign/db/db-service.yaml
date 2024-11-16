@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb
+  namespace: db
+  labels:
+    id: c0911194
+    app: mariadb
+    env: dev
+spec:
+  selector:
+    id: c0911194
+  ports:
+  - port: 3306
+    targetPort: 3306
+

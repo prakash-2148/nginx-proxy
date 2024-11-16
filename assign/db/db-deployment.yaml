@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb
+  namespace: db
+  labels:
+    id: c0911194
+    app: mariadb
+    env: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      id: c0911194
+  template:
+    metadata:
+      labels:
+        id: c0911194
+        app: mariadb
+        env: dev
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb:latest
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: password
+        ports:
+        - containerPort: 3306
+

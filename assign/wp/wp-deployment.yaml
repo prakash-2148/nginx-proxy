@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wordpress
+  namespace: wp
+  labels:
+    id: c0911194
+    app: wordpress
+    env: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      id: c0911194
+  template:
+    metadata:
+      labels:
+        id: c0911194
+        app: wordpress
+        env: dev
+    spec:
+      containers:
+      - name: wordpress
+        image: wordpress:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: WORDPRESS_DB_HOST
+          value: "mariadb.db.svc.cluster.local:3306"
+        - name: WORDPRESS_DB_NAME
+          value: "wordpress"
+        - name: WORDPRESS_DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: username
+        - name: WORDPRESS_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: password
+
+
+

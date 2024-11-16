@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-proxy
+  namespace: proxy
+  labels:
+    id: c0911194
+    app: nginx-proxy
+    env: dev
+spec:
+  type: LoadBalancer
+  selector:
+    id: c0911194
+  ports:
+  - port: 80
+    targetPort: 80
+
